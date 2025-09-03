@@ -1,0 +1,15 @@
+@startuml 
+title Maquina de Estado: Oferta Empleo
+
+[*] --> Disponible : (8) Registrar oferta de empleo
+
+Disponible --> Pausada : (14) Registrar pausa de oferta de empleo \n [oferta disponible = no]
+Disponible --> Eliminada : (6) Eliminar oferta de empleo
+
+Pausada --> Disponible : (15) Registrar disponibilidad de oferta de empleo \n [oferta disponible = si]
+Pausada --> Eliminada : (6) Eliminar oferta de empleo
+Pausada --> Pausada
+
+Eliminada --> [*]
+
+@enduml
