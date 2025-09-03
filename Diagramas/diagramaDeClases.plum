@@ -1,0 +1,134 @@
+@startuml
+class Empresa {
+  +id_empresa: int
+  +nombre: string
+  +cuit: string
+  +telefono: string
+  +mail: string
+}
+
+class Direccion {
+  +id_direccion: int
+  +calle: string
+  +numero: string
+}
+
+class Localidad {
+  +id_localidad: int
+  +nombre: string
+  +cp: string
+}
+
+class Provincia {
+  +id_provincia: int
+  +nombre: string
+}
+
+class OfertaEmpleo {
+  +id_ofertaFormal: int
+  +puesto: string
+  +descripcion: string
+  +responsabilidad: string
+  +modalidad: string
+  +horario: string
+  +requisitos: string
+  +beneficios: string
+
+  +registrarOfertaEmpleo()
+  +eliminarOfertaEmpleo()
+  +pausarOfertaEmpleo()
+  +ponerDisponibleOfertaEmpleo()
+}
+
+class Usuario {
+  +id_usuario: int
+  +nombre: string
+  +apellido: string
+  +cuil: string
+  +telefono: string
+  +mail: string
+}
+
+class SolicitudEmpleo {
+  +id_solicitud: int
+  +fechaSolicitud: date
+
+  +new()
+  +revisarSolicitud()
+  +preseleccionar()
+  +aceptarSolicitud()
+  +rechazarSolicitud()
+  +cancelarSolicitud()
+  +eliminarOferta()
+}
+
+class EmpleoOfrecido {
+  +id_empleoOfrecido
+  +puesto: string
+  +descripcion: string
+}
+
+class FormularioCV {
+  +cv: string
+  +aptitudes: string
+}
+
+class Experiencia {
+  +nombreEmpresa: string
+  +puesto: string
+  +añoInicio: int
+  +añoFin: int
+}
+
+class Estudio {
+  +institucion: string
+  +titulo: string
+  +nivel: string
+  +añoInicio: int
+  +añoFin: int
+}
+
+class Idioma {
+  +nombre: string
+}
+
+class Nivel {
+  +nombre: string
+}
+
+class CambioEstado {
+  +ambito: string
+  +fechaInicio: date
+  +fechaFin: date
+}
+
+class Estado {
+  +nombre: string
+  +descripcion: string
+}
+
+' ============================
+' Relaciones
+' ============================
+
+Empresa "1" -- "0..*" OfertaEmpleo : ofertaEmpleo
+Empresa "1" -- "1" Direccion : direccion
+Direccion "1..*" -- "1" Localidad : localidad
+Localidad "1..*" -- "1" Provincia : provincia
+
+Usuario "1" -- "0..*" EmpleoOfrecido : empleoOfrecido
+Usuario "1" -- "1" Direccion : direccion
+Usuario "1" -- "1" FormularioCV : formularioCV
+Usuario "1" -- "0..*" SolicitudEmpleo : solicitudEmpleo
+
+OfertaEmpleo "1" -- "0..*" SolicitudEmpleo : solicitudEmpleo
+
+SolicitudEmpleo "1..*" -- "1" CambioEstado : cambioEstado
+CambioEstado "1..*" -- "1" Estado : estado
+
+FormularioCV "1" -- "0..*" Experiencia : experiencia
+FormularioCV "1" -- "1..*" Estudio : estudio
+FormularioCV "1" -- "1..*" Idioma : idioma
+
+Idioma "1" -- "1" Nivel : nivel
+@enduml

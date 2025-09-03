@@ -1,0 +1,134 @@
+@startuml
+!theme plain
+
+entity Empresa {
+  *id_empresa : int <<PK>>
+  nombre : string
+  cuit : string
+  telefono : string
+  mail : string
+  id_direccion : int <<FK>>
+}
+
+entity Direccion {
+  *id_direccion : int <<PK>>
+  calle : string
+  numero : string
+  id_localidad : int <<FK>>
+}
+
+entity Localidad {
+  *id_localidad : int <<PK>>
+  nombre : string
+  cp : string
+  id_provincia : int <<FK>>
+}
+
+entity Provincia {
+  *id_provincia : int <<PK>>
+  nombre : string
+}
+
+entity OfertaEmpleo {
+  *id_ofertaEmpleo : int <<PK>>
+  puesto : string
+  descripcion : string
+  responsabilidad : string
+  modalidad : string
+  horario : string
+  requisitos : string
+  beneficios : string
+  id_empresa : int <<FK>>
+  id_estado : int <<FK>>
+}
+
+entity Usuario {
+  *id_usuario : int <<PK>>
+  nombre : string
+  apellido : string
+  cuil : string
+  telefono : string
+  mail : string
+  id_direccion : int <<FK>>
+  id_formularioCV : int <<FK>>
+}
+
+entity EmpleoOfrecido {
+  *id_empleoOfrecido : int <<PK>>
+  puesto : string
+  descripcion : string
+  id_usuario : int <<FK>>
+}
+
+entity FormularioCV {
+  *id_formularioCV : int <<PK>>
+  cv : string
+  aptitudes : string
+  id_experiencia : int <<FK>>
+  id_estudio : int <<FK>>
+  id_idioma : int <<FK>>
+}
+
+entity Experiencia {
+  *id_experiencia : int <<PK>>
+  nombreEmpresa : string
+  puesto : string
+  añoInicio : int
+  añoFin : int
+}
+
+entity Estudio {
+  *id_estudio : int <<PK>>
+  institucion : string
+  titulo : string
+  nivel : string
+  añoInicio : int
+  añoFin : int
+}
+
+entity Idioma {
+  *id_idioma : int <<PK>>
+  nombre : string
+  nivel : string
+}
+
+entity Nivel {
+  *id_nivel : int <<PK>>
+  nombre : string
+}
+
+entity SolicitudEmpleo {
+  *id_solicitudEmpleo : int <<PK>>
+  fechaSolicitud : date
+  id_ofertaEmpleo : int <<FK>>
+  id_usuario : int <<FK>>
+  id_estado : int <<FK>>
+}
+
+entity Estado {
+  *id_estado : int <<PK>>
+  valor : string
+}
+
+' Relaciones
+Empresa ||--o{ OfertaEmpleo : "publica"
+Empresa ||--|| Direccion : "tiene"
+
+Direccion }o--|| Localidad : "pertenece a"
+Localidad }o--|| Provincia : "pertenece a"
+
+Usuario ||--o{ EmpleoOfrecido : "ofrece"
+Usuario ||--|| Direccion : "tiene"
+Usuario ||--|| FormularioCV : "presenta"
+
+FormularioCV ||--o{ Experiencia : "incluye"
+FormularioCV ||--o{ Estudio : "incluye"
+FormularioCV ||--o{ Idioma : "incluye"
+
+Idioma }o--|| Nivel : "tiene"
+
+OfertaEmpleo ||--o{ SolicitudEmpleo : "recibe"
+Usuario ||--o{ SolicitudEmpleo : "realiza"
+Estado ||--o{ SolicitudEmpleo : "define"
+Estado ||--o{ OfertaEmpleo : "define"
+@enduml

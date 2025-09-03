@@ -1,0 +1,81 @@
+@startuml
+left to right direction
+
+actor Empresa
+actor Usuario
+
+rectangle "Sistema de Gestión de Empleo" {
+  
+  (01. Registrar empresa) as CU1
+  (02. Modificar empresa) as CU2
+  (03. Eliminar empresa) as CU3
+  (04. Consultar empresa) as CU4
+  (05. Modificar oferta empleo) as CU5
+  (06. Eliminar oferta empleo) as CU6
+  (07. Consultar oferta empleo) as CU7
+  (08. Registrar oferta empleo) as CU8
+  (09. Consultar solicitud empleo) as CU9
+  (10. Revisar solicitud empleo) as CU10
+  (11. Generar reportes e informes) as CU11
+  (12. Registrar preselección de solicitud empleo) as CU12
+  (13. Registrar resultado de solicitud empleo) as CU13
+  (14. Registrar pausa oferta empleo) as CU14
+  (15. Registrar disponibilidad oferta empleo) as CU15
+
+  (10. Registrar usuario) as CU16
+  (11. Modificar usuario) as CU17
+  (12. Consultar usuario) as CU18
+  (13. Eliminar usuario) as CU19
+  (14. Registrar empleo ofrecido) as CU20
+  (15. Consultar empleo ofrecido) as CU21
+  (16. Modificar empleo ofrecido) as CU22
+  (17. Eliminar empleo ofrecido) as CU23
+  (18. Registrar formulario CV) as CU24
+  (19. Modificar formulario CV) as CU25
+  (20. Consultar formulario CV) as CU26
+  (21. Eliminar formulario CV) as CU27
+  (22. Consultar oferta empleo) as CU28
+  (23. Registrar solicitud empleo) as CU29
+  (24. Consultar solicitud empleo) as CU30
+  (25. Eliminar solicitud empleo) as CU31
+  (26. Cancelar solicitud empleo) as CU32
+  (27. Generar reportes e informes) as CU33
+}
+
+' Relación Empresa con sus casos de uso
+Empresa -- CU1
+Empresa -- CU2
+Empresa -- CU3
+Empresa -- CU4
+Empresa -- CU5
+Empresa -- CU6
+Empresa -- CU7
+Empresa -- CU8
+Empresa -- CU9
+Empresa -- CU10
+Empresa -- CU11
+Empresa -- CU12
+Empresa -- CU13
+Empresa -- CU14
+Empresa -- CU15
+
+' Relación Usuario con sus casos de uso
+Usuario -- CU16
+Usuario -- CU17
+Usuario -- CU18
+Usuario -- CU19
+Usuario -- CU20
+Usuario -- CU21
+Usuario -- CU22
+Usuario -- CU23
+Usuario -- CU24
+Usuario -- CU25
+Usuario -- CU26
+Usuario -- CU27
+Usuario -- CU28
+Usuario -- CU29
+Usuario -- CU30
+Usuario -- CU31
+Usuario -- CU32
+Usuario -- CU33
+@enduml
