@@ -44,9 +44,11 @@ class Usuario {
   +id_usuario: int
   +nombre: string
   +apellido: string
+  +fechaNacimiento: string
   +cuil: string
   +telefono: string
   +mail: string
+  +contraseña: string
 }
 
 class SolicitudEmpleo {
@@ -131,4 +133,5 @@ FormularioCV "1" -- "1..*" Estudio : estudio
 FormularioCV "1" -- "1..*" Idioma : idioma
 
 Idioma "1" -- "1" Nivel : nivel
+
 @enduml
