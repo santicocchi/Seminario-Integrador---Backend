@@ -1,0 +1,30 @@
+@startuml 
+title Maquina de Estado: Solicitud de Empleo
+
+[*] --> Pendiente_de_revision : (23) Registrar solicitud de empleo
+
+Pendiente_de_revision --> En_revision : (10) Revisar solicitud de empleo \n [solicitud revisada = si]
+Pendiente_de_revision --> Cancelada : (25) Cancelar solicitud de empleo
+Pendiente_de_revision --> Oferta_eliminada : (6) Eliminar oferta de empleo
+Pendiente_de_revision --> Pendiente_de_revision: (10) Revisar solicitud de empleo \n [solicitud revisada = no]
+
+En_revision --> Preseleccionada : (12) Registrar preselección
+En_revision --> Cancelada : (25) Cancelar solicitud de empleo
+En_revision --> Oferta_eliminada : (6) Eliminar oferta de empleo
+En_revision --> Rechazada : (13) Registrar resultado de solicitud de empleo \n [solicitud aceptada = no]
+En_revision --> Aceptada : (13) Registrar resultado de solicitud de empleo \n [solicitud aceptada = si]
+
+Preseleccionada --> Cancelada : (25) Cancelar solicitud de empleo
+Preseleccionada --> Oferta_eliminada : (6) Eliminar oferta de empleo
+Preseleccionada --> Rechazada : (13) Registrar resultado de solicitud de empleo \n [solicitud aceptada = no]
+Preseleccionada --> Aceptada : (13) Registrar resultado de solicitud de empleo \n [solicitud aceptada = si]
+
+Oferta_eliminada --> [*]
+
+Cancelada --> [*]
+
+Rechazada --> [*]
+
+Aceptada --> [*]
+
+@enduml
