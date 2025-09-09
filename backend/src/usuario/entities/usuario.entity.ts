@@ -1,12 +1,13 @@
-import { PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from "typeorm";
-import { Direccion } from "./direccion.entity";
-import { FormularioCv } from "./formulario-cv.entity";
-import { SolicitudEmpleo } from "./solicitud-empleo.entity";
-import { EmpleoOfrecido } from "./empleo-ofrecido.entity";
+import { PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne, Entity } from "typeorm";
+import { Direccion } from "../../direccion/entities/direccion.entity";
+import { FormularioCv } from "../../formulario-cv/entities/formulario-cv.entity";
+import { SolicitudEmpleo } from "../../solicitud-empleo/entities/solicitud-empleo.entity";
+import { EmpleoOfrecido } from "src/empleo-ofrecido/entities/empleo-ofrecido.entity";
 
+@Entity("Usuario")
 export class Usuario {
-    @PrimaryGeneratedColumn()
-    id_usuario: number;
+  @PrimaryGeneratedColumn()
+  id_usuario: number;
 
   @Column()
   nombre: string;

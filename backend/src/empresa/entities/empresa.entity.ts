@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { Direccion } from './direccion.entity';
-import { OfertaEmpleo } from './oferta-empleo.entity';
+import { Direccion } from '../../direccion/entities/direccion.entity';
+import { OfertaEmpleo } from '../../oferta-empleo/entities/oferta-empleo.entity';
 
+@Entity("Empresa")
 export class Empresa {
     @PrimaryGeneratedColumn()
     id_empresa: number;

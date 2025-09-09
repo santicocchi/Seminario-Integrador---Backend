@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
-import { Provincia } from './provincia.entity';
-import { Direccion } from './direccion.entity';
+import { Provincia } from 'src/provincia/entities/provincia.entity';
+import { Direccion } from 'src/direccion/entities/direccion.entity';
 
+@Entity("Localidad")
 export class Localidad {
     @PrimaryGeneratedColumn()
     id_localidad: number;

@@ -1,8 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Idioma } from './idioma.entity';
+import { Idioma } from 'src/idioma/entities/idioma.entity';
 
+@Entity("Nivel")
 export class Nivel {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_nivel: number;
 
   @Column()
