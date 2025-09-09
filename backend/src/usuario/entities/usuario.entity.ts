@@ -16,6 +16,9 @@ export class Usuario {
   apellido: string;
 
   @Column()
+  fecha_nacimiento: Date;
+
+  @Column()
   cuil: string;
 
   @Column()
@@ -23,6 +26,9 @@ export class Usuario {
 
   @Column()
   mail: string;
+
+  @Column()
+  contrasena: string;
 
   @ManyToOne(() => Direccion, direccion => direccion.usuarios)
   @JoinColumn({ name: 'id_direccion' })
