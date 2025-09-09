@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { OfertaEmpleo } from './oferta-empleo.entity';
-import { Usuario } from './usuario.entity';
-import { Estado } from './estado.entity';
+import { OfertaEmpleo } from '../../oferta-empleo/entities/oferta-empleo.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
+import { Estado } from 'src/estado/entities/estado.entity';
 
 @Entity()
 export class SolicitudEmpleo {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_solicitudEmpleo: number;
 
   @Column({ type: 'date' })

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Idioma } from './idioma.entity';
+import { Idioma } from 'src/idioma/entities/idioma.entity';
 
 @Entity()
 export class Nivel {

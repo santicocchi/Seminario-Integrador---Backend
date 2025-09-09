@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from "typeorm";
-import { Direccion } from "./direccion.entity";
-import { FormularioCv } from "./formulario-cv.entity";
-import { SolicitudEmpleo } from "./solicitud-empleo.entity";
-import { EmpleoOfrecido } from "./empleo-ofrecido.entity";
+import { PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne, Entity } from "typeorm";
+import { Direccion } from "../../direccion/entities/direccion.entity";
+import { FormularioCv } from "../../formulario-cv/entities/formulario-cv.entity";
+import { SolicitudEmpleo } from "../../solicitud-empleo/entities/solicitud-empleo.entity";
+import { EmpleoOfrecido } from "src/empleo-ofrecido/entities/empleo-ofrecido.entity";
 
-@Entity()
+@Entity("Usuario")
 export class Usuario {
   @PrimaryGeneratedColumn()
   id_usuario: number;
@@ -16,6 +16,9 @@ export class Usuario {
   apellido: string;
 
   @Column()
+  fecha_nacimiento: Date;
+
+  @Column()
   cuil: string;
 
   @Column()
@@ -23,6 +26,9 @@ export class Usuario {
 
   @Column()
   mail: string;
+
+  @Column()
+  contrasena: string;
 
   @ManyToOne(() => Direccion, direccion => direccion.usuarios)
   @JoinColumn({ name: 'id_direccion' })

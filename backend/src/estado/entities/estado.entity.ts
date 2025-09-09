@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { OfertaEmpleo } from './oferta-empleo.entity';
-import { SolicitudEmpleo } from './solicitud-empleo.entity';
+import { OfertaEmpleo } from 'src/oferta-empleo/entities/oferta-empleo.entity';
+import { SolicitudEmpleo } from 'src/solicitud-empleo/entities/solicitud-empleo.entity';
 
 @Entity()
 export class Estado {

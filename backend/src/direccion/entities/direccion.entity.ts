@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
-import { Localidad } from './localidad.entity';
-import { Empresa } from './empresa.entity';
-import { Usuario } from './usuario.entity';
+import { Localidad } from '../../localidad/entities/localidad.entity';
+import { Empresa } from '../../empresa/entities/empresa.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
 @Entity()
 export class Direccion {

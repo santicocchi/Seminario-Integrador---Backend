@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { SolicitudEmpleoService } from './solicitud-empleo.service';
 import { SolicitudEmpleoController } from './solicitud-empleo.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SolicitudEmpleo } from 'src/entities/solicitud-empleo.entity';
+import { SolicitudEmpleo } from './entities/solicitud-empleo.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SolicitudEmpleo])],

@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Empresa } from './empresa.entity';
-import { Estado } from './estado.entity';
+import { Empresa } from 'src/empresa/entities/empresa.entity';
+import { Estado } from 'src/estado/entities/estado.entity';
 
 @Entity()
 export class OfertaEmpleo {

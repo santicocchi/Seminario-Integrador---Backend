@@ -2,10 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule} from '@nestjs/typeorm';
-import { EmpresaModule } from './empresa/empresa.module';
 import { DireccionModule } from './direccion/direccion.module';
-import { UsuarioModule } from './usuario/usuario.module';
-import { OfertaEmpleoModule } from './oferta-empleo/oferta-empleo.module';
+import { EmpleoOfrecidoModule } from './empleo-ofrecido/empleo-ofrecido.module';
+import { EmpresaModule } from './empresa/empresa.module';
 import { EstadoModule } from './estado/estado.module';
 import { EstudioModule } from './estudio/estudio.module';
 import { ExperienciaModule } from './experiencia/experiencia.module';
@@ -13,9 +12,11 @@ import { FormularioCvModule } from './formulario-cv/formulario-cv.module';
 import { IdiomaModule } from './idioma/idioma.module';
 import { LocalidadModule } from './localidad/localidad.module';
 import { NivelModule } from './nivel/nivel.module';
+import { OfertaEmpleoModule } from './oferta-empleo/oferta-empleo.module';
 import { ProvinciaModule } from './provincia/provincia.module';
 import { SolicitudEmpleoModule } from './solicitud-empleo/solicitud-empleo.module';
-import { ProvinciaController } from './provincia/provincia.controller';
+import { UsuarioModule } from './usuario/usuario.module';
+import { entities } from './entities';
 
 @Module({
   imports: [
@@ -32,8 +33,8 @@ import { ProvinciaController } from './provincia/provincia.controller';
     // Módulos de la aplicación
     EmpresaModule,
     DireccionModule,
-    UsuarioModule,
-    OfertaEmpleoModule,
+    EmpleoOfrecidoModule,
+    EmpresaModule,
     EstadoModule,
     EstudioModule,
     ExperienciaModule,
@@ -41,8 +42,10 @@ import { ProvinciaController } from './provincia/provincia.controller';
     IdiomaModule,
     LocalidadModule,
     NivelModule,
+    OfertaEmpleoModule,
     ProvinciaModule,
     SolicitudEmpleoModule,
+    UsuarioModule
   ],
   controllers: [AppController],
   providers: [AppService],

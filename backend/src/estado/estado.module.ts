@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { EstadoService } from './estado.service';
 import { EstadoController } from './estado.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Estado } from 'src/entities/estado.entity';
+import { Estado } from './entities/estado.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Estado])],

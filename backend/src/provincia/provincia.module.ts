@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ProvinciaService } from './provincia.service';
 import { ProvinciaController } from './provincia.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Provincia } from 'src/entities/provincia.entity';
+import { Provincia } from './entities/provincia.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Provincia])],
