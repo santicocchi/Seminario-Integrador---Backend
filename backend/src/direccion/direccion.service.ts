@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Direccion } from '../entities/direccion.entity';
 import { CreateDireccionDto } from './dto/create-direccion.dto';
 import { UpdateDireccionDto } from './dto/update-direccion.dto';
 
 @Injectable()
 export class DireccionService {
-  create(createDireccionDto: CreateDireccionDto) {
-    return 'This action adds a new direccion';
+  constructor(
+    @InjectRepository(Direccion)
+    private readonly direccionRepository: Repository<Direccion>,
+  ) {}
+
+  async create(createDireccionDto: CreateDireccionDto): Promise<Direccion> {
+    const direccion = this.direccionRepository.create(createDireccionDto);
+    return this.direccionRepository.save(direccion);
   }
 
-  findAll() {
-    return `This action returns all direccion`;
+  async findAll(): Promise<Direccion[]> {
+    return this.direccionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} direccion`;
+  async findOne(id: number): Promise<Direccion | null> {
+    return this.direccionRepository.findOneBy({ id_direccion: id });
   }
 
-  update(id: number, updateDireccionDto: UpdateDireccionDto) {
-    return `This action updates a #${id} direccion`;
+  async update(id: number, updateDireccionDto: UpdateDireccionDto): Promise<Direccion | null> {
+    await this.direccionRepository.update(id, updateDireccionDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} direccion`;
+  async remove(id: number): Promise<void> {
+    await this.direccionRepository.delete(id);
   }
 }

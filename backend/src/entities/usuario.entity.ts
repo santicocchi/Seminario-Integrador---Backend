@@ -1,12 +1,13 @@
-import { PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from "typeorm";
 import { Direccion } from "./direccion.entity";
 import { FormularioCv } from "./formulario-cv.entity";
 import { SolicitudEmpleo } from "./solicitud-empleo.entity";
 import { EmpleoOfrecido } from "./empleo-ofrecido.entity";
 
+@Entity()
 export class Usuario {
-    @PrimaryGeneratedColumn()
-    id_usuario: number;
+  @PrimaryGeneratedColumn()
+  id_usuario: number;
 
   @Column()
   nombre: string;

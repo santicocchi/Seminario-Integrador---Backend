@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColum
 import { Provincia } from './provincia.entity';
 import { Direccion } from './direccion.entity';
 
+@Entity()
 export class Localidad {
     @PrimaryGeneratedColumn()
     id_localidad: number;

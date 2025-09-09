@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMan
 import { Direccion } from './direccion.entity';
 import { OfertaEmpleo } from './oferta-empleo.entity';
 
+@Entity()
 export class Empresa {
     @PrimaryGeneratedColumn()
     id_empresa: number;

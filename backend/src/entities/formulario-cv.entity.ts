@@ -3,8 +3,9 @@ import { Experiencia } from './experiencia.entity';
 import { Estudio } from './estudio.entity';
 import { Idioma } from './idioma.entity';
 
+@Entity()
 export class FormularioCv {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_formularioCv: number;
 
   @Column('text')

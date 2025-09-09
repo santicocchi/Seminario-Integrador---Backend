@@ -2,8 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { OfertaEmpleo } from './oferta-empleo.entity';
 import { SolicitudEmpleo } from './solicitud-empleo.entity';
 
+@Entity()
 export class Estado {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_estado: number;
 
   @Column()

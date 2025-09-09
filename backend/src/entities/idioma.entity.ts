@@ -2,8 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { Nivel } from './nivel.entity';
 import { FormularioCv } from './formulario-cv.entity';
 
+@Entity()
 export class Idioma {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_idioma: number;
 
   @Column()

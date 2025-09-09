@@ -2,8 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { Empresa } from './empresa.entity';
 import { Estado } from './estado.entity';
 
+@Entity()
 export class OfertaEmpleo {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_ofertaEmpleo: number;
 
   @Column()

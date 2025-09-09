@@ -3,8 +3,9 @@ import { Localidad } from './localidad.entity';
 import { Empresa } from './empresa.entity';
 import { Usuario } from './usuario.entity';
 
+@Entity()
 export class Direccion {
-      @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_direccion: number;
 
   @Column()

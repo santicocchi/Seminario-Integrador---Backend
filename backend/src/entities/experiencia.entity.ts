@@ -1,8 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { FormularioCv } from './formulario-cv.entity';
 
+@Entity()
 export class Experiencia {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_experiencia: number;
 
   @Column()

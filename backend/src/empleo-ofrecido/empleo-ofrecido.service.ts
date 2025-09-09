@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { EmpleoOfrecido } from '../entities/empleo-ofrecido.entity';
 import { CreateEmpleoOfrecidoDto } from './dto/create-empleo-ofrecido.dto';
 import { UpdateEmpleoOfrecidoDto } from './dto/update-empleo-ofrecido.dto';
 
 @Injectable()
 export class EmpleoOfrecidoService {
-  create(createEmpleoOfrecidoDto: CreateEmpleoOfrecidoDto) {
-    return 'This action adds a new empleoOfrecido';
+  constructor(
+    @InjectRepository(EmpleoOfrecido)
+    private readonly empleoOfrecidoRepository: Repository<EmpleoOfrecido>,
+  ) {}
+
+  async create(createEmpleoOfrecidoDto: CreateEmpleoOfrecidoDto): Promise<EmpleoOfrecido> {
+    const empleo = this.empleoOfrecidoRepository.create(createEmpleoOfrecidoDto);
+    return this.empleoOfrecidoRepository.save(empleo);
   }
 
-  findAll() {
-    return `This action returns all empleoOfrecido`;
+  async findAll(): Promise<EmpleoOfrecido[]> {
+    return this.empleoOfrecidoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} empleoOfrecido`;
+  async findOne(id: number): Promise<EmpleoOfrecido | null> {
+  return this.empleoOfrecidoRepository.findOneBy({ id_empleoOfrecido: id });  
+}
+
+  async update(id: number, updateEmpleoOfrecidoDto: UpdateEmpleoOfrecidoDto): Promise<EmpleoOfrecido | null> {
+    await this.empleoOfrecidoRepository.update(id, updateEmpleoOfrecidoDto);
+    return this.findOne(id);
   }
 
-  update(id: number, updateEmpleoOfrecidoDto: UpdateEmpleoOfrecidoDto) {
-    return `This action updates a #${id} empleoOfrecido`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} empleoOfrecido`;
+  async remove(id: number): Promise<void> {
+    await this.empleoOfrecidoRepository.delete(id);
   }
 }

@@ -3,6 +3,7 @@ import { OfertaEmpleo } from './oferta-empleo.entity';
 import { Usuario } from './usuario.entity';
 import { Estado } from './estado.entity';
 
+@Entity()
 export class SolicitudEmpleo {
     @PrimaryGeneratedColumn()
   id_solicitudEmpleo: number;
