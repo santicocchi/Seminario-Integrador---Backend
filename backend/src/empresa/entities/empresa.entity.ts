@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, OneToOne, Check } from 'typeorm';
 import { Direccion } from '../../direccion/entities/direccion.entity';
 import { OfertaEmpleo } from '../../oferta-empleo/entities/oferta-empleo.entity';
 
 @Entity("Empresa")
 export class Empresa {
     @PrimaryGeneratedColumn()
-    id_empresa: number;
+    id: number;
 
     @Column()
     nombre: string;
@@ -13,13 +13,13 @@ export class Empresa {
     @Column()
     cuit: string;
 
-    @Column()
+    @Column({type:'varchar',length:20})
     telefono: string;
 
     @Column()
     mail: string;
 
-    @ManyToOne(() => Direccion, direccion => direccion.empresas)
+    @OneToOne(() => Direccion, direccion => direccion.empresa)
     @JoinColumn({ name: 'id_direccion' })
     direccion: Direccion;
 
