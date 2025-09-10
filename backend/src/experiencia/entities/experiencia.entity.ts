@@ -1,22 +1,22 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { FormularioCv } from 'src/formulario-cv/entities/formulario-cv.entity';
 
-@Entity()
+@Entity("Experiencia")
 export class Experiencia {
   @PrimaryGeneratedColumn()
-  id_experiencia: number;
+  id: number;
 
-  @Column()
-  nombreEmpresa: string;
+  @Column({ type: 'varchar', length: 150 })
+  empresa: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 150 })
   puesto: string;
 
-  @Column()
+  @Column({ type: 'int' })
   añoInicio: number;
 
-  @Column({ nullable: true })
-  añoFin: number;
+  @Column({ type: 'int', nullable: true })
+  añoFin?: number;
 
   @ManyToOne(() => FormularioCv, cv => cv.experiencias)
   @JoinColumn({ name: 'id_formularioCV' })

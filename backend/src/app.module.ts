@@ -28,12 +28,12 @@ import { AuthModule } from '../../JWT/src/auth/auth.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
+      port: 5435,
       username: 'postgres',
       password: 'postgres',
       database: 'bolsaempleo',
       synchronize: true,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities,
     }),
     TypeOrmModule.forFeature(entities),
     // Módulos de la aplicación

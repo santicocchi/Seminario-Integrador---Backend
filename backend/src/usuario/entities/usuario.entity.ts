@@ -5,36 +5,31 @@ import { SolicitudEmpleo } from "../../solicitud-empleo/entities/solicitud-emple
 import { EmpleoOfrecido } from "src/empleo-ofrecido/entities/empleo-ofrecido.entity";
 
 @Entity("Usuario")
-export class Usuario {
+ export class Usuario {
   @PrimaryGeneratedColumn()
-  id_usuario: number;
+  id: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   nombre: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   apellido: string;
 
-  @Column()
-  fecha_nacimiento: Date;
+  @Column({ type: 'date' })
+  fechaNacimiento: Date;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
+  genero: string;
+
+  @Column({ type: 'varchar', length: 13, unique: true })
   cuil: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
   telefono: string;
 
-  @Column()
-  email: string;
+  @Column({ type: 'varchar', length: 100, unique: true })
+  mail: string;
 
-  @Column()
-  id_direccion: number;
-
-  @Column()
-  password: string;
-
-  @Column({ default: 'usuario' }) //rol por defecto
-  role: string;
 
   @ManyToOne(() => Direccion, direccion => direccion.usuarios)
   @JoinColumn({ name: 'id_direccion' })
