@@ -2,12 +2,12 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { OfertaEmpleo } from 'src/oferta-empleo/entities/oferta-empleo.entity';
 import { SolicitudEmpleo } from 'src/solicitud-empleo/entities/solicitud-empleo.entity';
 
-@Entity()
+@Entity("Estado")
 export class Estado {
   @PrimaryGeneratedColumn()
-  id_estado: number;
+  id: number;
 
-  @Column()
+  @Column({type: 'varchar', length: 100})
   valor: string;
 
   @OneToMany(() => OfertaEmpleo, oferta => oferta.estado)

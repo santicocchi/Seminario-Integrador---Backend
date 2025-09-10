@@ -2,17 +2,17 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { Nivel } from 'src/nivel/entities/nivel.entity';
 import { FormularioCv } from 'src/formulario-cv/entities/formulario-cv.entity';
 
-@Entity()
+@Entity("Idioma")
 export class Idioma {
   @PrimaryGeneratedColumn()
-  id_idioma: number;
+  id: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   nombre: string;
 
-  @ManyToOne(() => Nivel, nivel => nivel.idiomas)
-  @JoinColumn({ name: 'id_nivel' })
-  nivel: Nivel;
+  @Column({ type: 'varchar', length: 50 })
+  nivel: string;
+
 
   @ManyToOne(() => FormularioCv, cv => cv.idiomas)
   @JoinColumn({ name: 'id_formularioCV' })

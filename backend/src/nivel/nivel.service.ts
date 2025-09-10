@@ -1,36 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Nivel } from '../entities/nivel.entity';
 import { CreateNivelDto } from './dto/create-nivel.dto';
 import { UpdateNivelDto } from './dto/update-nivel.dto';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
 export class NivelService {
-  constructor(
-    @InjectRepository(Nivel)
-    private readonly nivelRepository: Repository<Nivel>,
-  ) {}
-
-  async create(createNivelDto: CreateNivelDto): Promise<Nivel> {
-    const nivel = this.nivelRepository.create(createNivelDto as Partial<Nivel>);
-    return this.nivelRepository.save(nivel);
+  create(createNivelDto: CreateNivelDto) {
+    return 'This action adds a new nivel';
   }
 
-  async findAll(): Promise<Nivel[]> {
-    return this.nivelRepository.find();
+  findAll() {
+    return `This action returns all nivel`;
   }
 
-  async findOne(id: number): Promise<Nivel | null> {
-    return this.nivelRepository.findOneBy({ id_nivel: id });
-  }
-  async update(id: number, updateNivelDto: UpdateNivelDto): Promise<Nivel | null> {
-    await this.nivelRepository.update(id, updateNivelDto as QueryDeepPartialEntity<Nivel>);
-    return this.findOne(id);
+  findOne(id: number) {
+    return `This action returns a #${id} nivel`;
   }
 
-  async remove(id: number): Promise<void> {
-    await this.nivelRepository.delete(id);
+  update(id: number, updateNivelDto: UpdateNivelDto) {
+    return `This action updates a #${id} nivel`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} nivel`;
   }
 }

@@ -23,15 +23,14 @@ import { entities } from './entities';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
+      port: 5435,
       username: 'postgres',
       password: 'postgres',
       database: 'bolsaempleo',
       synchronize: true,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities,
     }),
-    // Módulos de la aplicación
-    EmpresaModule,
+    TypeOrmModule.forFeature(entities),
     DireccionModule,
     EmpleoOfrecidoModule,
     EmpresaModule,

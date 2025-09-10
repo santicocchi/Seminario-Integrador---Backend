@@ -1,13 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Idioma } from 'src/idioma/entities/idioma.entity';
 
-@Entity()
+@Entity("Nivel")
 export class Nivel {
   @PrimaryGeneratedColumn()
-  id_nivel: number;
+  id: number;
 
-  @Column()
-  nombre: string;
+  @Column({ type: 'varchar', length: 50 })
+  nivel: string;
 
   @OneToMany(() => Idioma, idioma => idioma.nivel)
   idiomas: Idioma[];

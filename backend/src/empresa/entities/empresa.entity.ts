@@ -1,25 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, OneToOne, Check } from 'typeorm';
 import { Direccion } from '../../direccion/entities/direccion.entity';
 import { OfertaEmpleo } from '../../oferta-empleo/entities/oferta-empleo.entity';
 
-@Entity()
+@Entity("Empresa")
 export class Empresa {
     @PrimaryGeneratedColumn()
-    id_empresa: number;
+    id: number;
 
-    @Column()
+    @Column({type:'varchar',length:50, unique:true})
     nombre: string;
 
-    @Column()
+    @Column({type:'varchar',length:11, unique:true})
     cuit: string;
 
-    @Column()
+    @Column({type:'varchar',length:20, unique:true})
     telefono: string;
 
-    @Column()
+    @Column({type:'varchar',length:100,unique:true})
     mail: string;
 
-    @ManyToOne(() => Direccion, direccion => direccion.empresas)
+    @OneToOne(() => Direccion, direccion => direccion.empresa)
     @JoinColumn({ name: 'id_direccion' })
     direccion: Direccion;
 
