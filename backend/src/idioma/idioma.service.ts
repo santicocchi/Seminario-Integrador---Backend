@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Idioma } from '../entities/idioma.entity';
+import { Idioma } from './entities/idioma.entity';
 import { CreateIdiomaDto } from './dto/create-idioma.dto';
 import { UpdateIdiomaDto } from './dto/update-idioma.dto';
 

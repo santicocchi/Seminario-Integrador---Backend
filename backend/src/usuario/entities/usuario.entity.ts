@@ -25,10 +25,16 @@ export class Usuario {
   telefono: string;
 
   @Column()
-  mail: string;
+  email: string;
 
   @Column()
-  contrasena: string;
+  id_direccion: number;
+
+  @Column()
+  password: string;
+
+  @Column({ default: 'usuario' }) //rol por defecto
+  role: string;
 
   @ManyToOne(() => Direccion, direccion => direccion.usuarios)
   @JoinColumn({ name: 'id_direccion' })

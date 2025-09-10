@@ -17,6 +17,11 @@ import { ProvinciaModule } from './provincia/provincia.module';
 import { SolicitudEmpleoModule } from './solicitud-empleo/solicitud-empleo.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { entities } from './entities';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from '../../JWT/src/auth/jwt-auth.guard';
+import { RolesGuard } from '../../JWT/src/auth/roles.guard';
+import { AuthModule } from '../../JWT/src/auth/auth.module';
+
 
 @Module({
   imports: [
@@ -30,6 +35,7 @@ import { entities } from './entities';
       synchronize: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
+    TypeOrmModule.forFeature(entities),
     // Módulos de la aplicación
     EmpresaModule,
     DireccionModule,
@@ -45,9 +51,19 @@ import { entities } from './entities';
     OfertaEmpleoModule,
     ProvinciaModule,
     SolicitudEmpleoModule,
-    UsuarioModule
+    UsuarioModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard, // Guard global para JWT
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard, // Guard global para roles
+    },
+  ],
 })
 export class AppModule {}

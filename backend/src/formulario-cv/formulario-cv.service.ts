@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { FormularioCv } from '../entities/formulario-cv.entity';
+import { FormularioCv } from './entities/formulario-cv.entity';
 import { CreateFormularioCvDto } from './dto/create-formulario-cv.dto';
 import { UpdateFormularioCvDto } from './dto/update-formulario-cv.dto';
 

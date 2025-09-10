@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SolicitudEmpleo } from '../entities/solicitud-empleo.entity';
+import { SolicitudEmpleo } from './entities/solicitud-empleo.entity';
 import { CreateSolicitudEmpleoDto } from './dto/create-solicitud-empleo.dto';
 import { UpdateSolicitudEmpleoDto } from './dto/update-solicitud-empleo.dto';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { OfertaEmpleo } from '../entities/oferta-empleo.entity';
+import { OfertaEmpleo } from './entities/oferta-empleo.entity';
 import { CreateOfertaEmpleoDto } from './dto/create-oferta-empleo.dto';
 import { UpdateOfertaEmpleoDto } from './dto/update-oferta-empleo.dto';
 

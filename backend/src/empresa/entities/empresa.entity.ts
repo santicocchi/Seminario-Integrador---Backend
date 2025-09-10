@@ -17,7 +17,13 @@ export class Empresa {
     telefono: string;
 
     @Column()
-    mail: string;
+    email: string;
+
+    @Column()
+    password: string;
+
+    @Column({ default: 'empresa' }) //rol por defecto
+    role: string;
 
     @ManyToOne(() => Direccion, direccion => direccion.empresas)
     @JoinColumn({ name: 'id_direccion' })
