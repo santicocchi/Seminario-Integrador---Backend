@@ -5,27 +5,27 @@ import { Estado } from 'src/estado/entities/estado.entity';
 @Entity("OfertaEmpleo")
 export class OfertaEmpleo {
   @PrimaryGeneratedColumn()
-  id_ofertaEmpleo: number;
+  id: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 150 })
   puesto: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 500 })
   descripcion: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 300 })
   responsabilidad: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   modalidad: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   horario: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 300 })
   requisitos: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 300 })
   beneficios: string;
 
   @ManyToOne(() => Empresa, empresa => empresa.ofertas)

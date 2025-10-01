@@ -1,3 +1,9 @@
+import { IsNotEmpty, Matches } from 'class-validator';
+
 export class CreateNivelDto {
-    nivel: string;
+  @IsNotEmpty({ message: 'El nivel es obligatorio' })
+  @Matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, {
+    message: 'El nivel solo puede contener letras y espacios',
+  })
+  nivel: string;
 }

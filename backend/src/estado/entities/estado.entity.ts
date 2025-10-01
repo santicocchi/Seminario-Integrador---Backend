@@ -5,9 +5,9 @@ import { SolicitudEmpleo } from 'src/solicitud-empleo/entities/solicitud-empleo.
 @Entity("Estado")
 export class Estado {
   @PrimaryGeneratedColumn()
-  id_estado: number;
+  id: number;
 
-  @Column()
+  @Column({type: 'varchar', length: 100})
   valor: string;
 
   @OneToMany(() => OfertaEmpleo, oferta => oferta.estado)

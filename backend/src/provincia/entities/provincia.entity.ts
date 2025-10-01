@@ -3,11 +3,11 @@ import { Localidad } from 'src/localidad/entities/localidad.entity';
 
 @Entity("Provincia")
 export class Provincia {
-    @PrimaryGeneratedColumn()
-    id_provincia: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    nombre: string;
+  @Column({ type: 'varchar', length: 100 })
+  nombre: string;
 
     @OneToMany(() => Localidad, localidad => localidad.provincia)
     localidades: Localidad[];

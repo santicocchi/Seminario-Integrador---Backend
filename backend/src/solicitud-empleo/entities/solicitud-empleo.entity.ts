@@ -6,10 +6,10 @@ import { Estado } from 'src/estado/entities/estado.entity';
 @Entity("SolicitudEmpleo")
 export class SolicitudEmpleo {
   @PrimaryGeneratedColumn()
-  id_solicitudEmpleo: number;
+  id: number;
 
-  @Column({ type: 'date' })
-  fechaSolicitud: Date;
+  @Column({ type: 'timestamp' })
+  fecha: Date;
 
   @ManyToOne(() => OfertaEmpleo)
   @JoinColumn({ name: 'id_ofertaEmpleo' })

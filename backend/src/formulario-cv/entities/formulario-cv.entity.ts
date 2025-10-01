@@ -4,14 +4,14 @@ import { Estudio } from 'src/estudio/entities/estudio.entity';
 import { Idioma } from 'src/idioma/entities/idioma.entity';
 
 @Entity("FormularioCv")
-export class FormularioCv {
+export class FormularioCV {
   @PrimaryGeneratedColumn()
-  id_formularioCv: number;
+  id: number;
 
-  @Column('text')
-  cv: string;
+  @Column({ type: 'bytea' })
+  cv: Buffer; // Aquí se almacena el PDF directamente en la base de datos
 
-  @Column('text')
+  @Column({ type: 'varchar', length: 500 })
   aptitudes: string;
 
   @OneToMany(() => Experiencia, exp => exp.formularioCv, { cascade: true })

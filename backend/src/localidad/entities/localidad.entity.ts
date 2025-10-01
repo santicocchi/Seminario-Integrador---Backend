@@ -4,14 +4,14 @@ import { Direccion } from 'src/direccion/entities/direccion.entity';
 
 @Entity("Localidad")
 export class Localidad {
-    @PrimaryGeneratedColumn()
-    id_localidad: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    nombre: string;
+  @Column({ type: 'varchar', length: 100 })
+  nombre: string;
 
-    @Column()
-    cp: string;
+  @Column({ type: 'varchar', length: 8 })
+  cp: string;
 
     @ManyToOne(() => Provincia, provincia => provincia.localidades)
     @JoinColumn({ name: 'id_provincia' })

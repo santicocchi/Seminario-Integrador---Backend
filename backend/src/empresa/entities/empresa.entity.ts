@@ -7,16 +7,16 @@ export class Empresa {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({type:'varchar',length:50, unique:true})
     nombre: string;
 
-    @Column()
+    @Column({type:'varchar',length:11, unique:true})
     cuit: string;
 
-    @Column({type:'varchar',length:20})
+    @Column({type:'varchar',length:20, unique:true})
     telefono: string;
 
-    @Column()
+    @Column({type:'varchar',length:100,unique:true})
     mail: string;
 
     @OneToOne(() => Direccion, direccion => direccion.empresa)
