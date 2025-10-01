@@ -18,8 +18,8 @@ export class Idioma {
   //@JoinColumn({ name: 'id_formularioCV' })
   //formularioCv: FormularioCV;
 
-  @OneToOne(() => Nivel, nivel => nivel.idioma)
-  @JoinColumn() // el dueño de la relación
-  nivel: Nivel;
+  //@OneToOne(() => Nivel, nivel => nivel.idioma)
+  //@JoinColumn() // el dueño de la relación
+  //nivel: Nivel;
 
 }
