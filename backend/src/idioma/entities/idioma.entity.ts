@@ -10,11 +10,13 @@ export class Idioma {
   @Column({ type: 'varchar', length: 50 })
   nombre: string;
 
- 
+  //@ManyToOne(() => Nivel, nivel => nivel.idiomas)
+  //@JoinColumn({ name: 'id_nivel' })
+  //nivel: Nivel;
 
-  @ManyToOne(() => FormularioCV, cv => cv.idiomas)
-  @JoinColumn({ name: 'id_formularioCV' })
-  formularioCv: FormularioCV;
+  //@ManyToOne(() => FormularioCv, cv => cv.idiomas)
+  //@JoinColumn({ name: 'id_formularioCV' })
+  //formularioCv: FormularioCV;
 
   @OneToOne(() => Nivel, nivel => nivel.idioma)
   @JoinColumn() // el dueño de la relación

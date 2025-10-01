@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Estado } from './entities/estado.entity';
 import { CreateEstadoDto } from './dto/create-estado.dto';
 import { UpdateEstadoDto } from './dto/update-estado.dto';
 
 @Injectable()
 export class EstadoService {
-  create(createEstadoDto: CreateEstadoDto) {
-    return 'This action adds a new estado';
+  constructor(
+    @InjectRepository(Estado)
+    private readonly estadoRepository: Repository<Estado>,
+  ) {}
+
+  async create(createEstadoDto: CreateEstadoDto): Promise<Estado> {
+    const estado = this.estadoRepository.create(createEstadoDto as Partial<Estado>);
+    return this.estadoRepository.save(estado);
   }
 
-  findAll() {
-    return `This action returns all estado`;
+  async findAll(): Promise<Estado[]> {
+    return this.estadoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} estado`;
+  async findOne(id: number): Promise<Estado | null> {
+    return this.estadoRepository.findOneBy({ id_estado: id });
   }
 
-  update(id: number, updateEstadoDto: UpdateEstadoDto) {
-    return `This action updates a #${id} estado`;
+  async update(id: number, updateEstadoDto: UpdateEstadoDto): Promise<Estado | null> {
+    await this.estadoRepository.update(id, updateEstadoDto as Partial<Estado>);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estado`;
+  async remove(id: number): Promise<void> {
+    await this.estadoRepository.delete(id);
   }
 }

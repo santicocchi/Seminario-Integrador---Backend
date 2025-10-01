@@ -1,11 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { EmpresaService } from './empresa.service';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
+import { Roles } from '../../../JWT/src/auth/roles.decorator';
 
 @Controller('empresa')
 export class EmpresaController {
   constructor(private readonly empresaService: EmpresaService) {}
+
+  @Roles('empresa')
+  @Get('panel')
+  getPanel(@Request() req) {
+    return req.user; //viene de jwt.strategy.ts
+  }
 
   @Post()
   create(@Body() createEmpresaDto: CreateEmpresaDto) {
