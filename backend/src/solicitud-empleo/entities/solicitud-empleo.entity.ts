@@ -22,4 +22,5 @@ export class SolicitudEmpleo {
   @ManyToOne(() => Estado, estado => estado.solicitudes)
   @JoinColumn({ name: 'id_estado' })
   estado: Estado;
+  oferta: any;
 }
