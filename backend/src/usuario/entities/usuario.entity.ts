@@ -1,6 +1,6 @@
 import { PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne, Entity } from "typeorm";
 import { Direccion } from "../../direccion/entities/direccion.entity";
-import { FormularioCv } from "../../formulario-cv/entities/formulario-cv.entity";
+import { FormularioCV } from "../../formulario-cv/entities/formulario-cv.entity";
 import { SolicitudEmpleo } from "../../solicitud-empleo/entities/solicitud-empleo.entity";
 import { EmpleoOfrecido } from "src/empleo-ofrecido/entities/empleo-ofrecido.entity";
 
@@ -31,13 +31,13 @@ import { EmpleoOfrecido } from "src/empleo-ofrecido/entities/empleo-ofrecido.ent
   mail: string;
 
 
-  @ManyToOne(() => Direccion, direccion => direccion.usuarios)
+  @OneToOne(() => Direccion, direccion => direccion.usuarios)
   @JoinColumn({ name: 'id_direccion' })
   direccion: Direccion;
 
-  @OneToOne(() => FormularioCv, { cascade: true })
+  @OneToOne(() => FormularioCV, { cascade: true })
   @JoinColumn({ name: 'id_formularioCv' })
-  formularioCV: FormularioCv;
+  formularioCV: FormularioCV;
 
   @OneToMany(() => SolicitudEmpleo, solicitud => solicitud.usuario)
   solicitudes: SolicitudEmpleo[];

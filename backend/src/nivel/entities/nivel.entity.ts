@@ -9,4 +9,7 @@ export class Nivel {
   @Column()
   nombre: string;
 
+
+  @OneToMany(() => Idioma, idioma => idioma.nivel)
+  idiomas: Idioma[]
 }
