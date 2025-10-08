@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Empresa } from 'src/empresa/entities/empresa.entity';
 import { Estado } from 'src/estado/entities/estado.entity';
+import { SolicitudEmpleo } from 'src/solicitud-empleo/entities/solicitud-empleo.entity';
 
 @Entity("OfertaEmpleo")
 export class OfertaEmpleo {
@@ -35,4 +36,11 @@ export class OfertaEmpleo {
   @ManyToOne(() => Estado, estado => estado.ofertas)
   @JoinColumn({ name: 'id_estado' })
   estado: Estado;
+
+  
+  // Relación: Una oferta puede tener muchas solicitudes
+  @ManyToOne(() => SolicitudEmpleo, (solicitud) => solicitud.oferta, {
+    cascade: true,           // permite que las solicitudes se creen/eliminen con la oferta
+  })
+  solicitudes: SolicitudEmpleo[];
 }
