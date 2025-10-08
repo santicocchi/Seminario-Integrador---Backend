@@ -29,9 +29,9 @@ export class OfertaEmpleo {
   @Column({ type: 'varchar', length: 300 })
   beneficios: string;
 
-  @ManyToOne(() => Empresa, empresa => empresa.ofertas)
-  @JoinColumn({ name: 'id_empresa' })
-  empresa: Empresa;
+  //@ManyToOne(() => Empresa, empresa => empresa.ofertas)
+  //@JoinColumn({ name: 'id_empresa' })
+  //empresa: Empresa;
 
   @ManyToOne(() => Estado, estado => estado.ofertas)
   @JoinColumn({ name: 'id_estado' })

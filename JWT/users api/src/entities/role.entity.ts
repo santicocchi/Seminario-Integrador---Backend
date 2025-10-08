@@ -1,6 +1,7 @@
 import { Entity,BaseEntity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { Permission } from './permission.entity';
+import { Empresa } from './empresa.entity';
 
 @Entity('roles')
 export class Role extends BaseEntity {
@@ -13,6 +14,9 @@ export class Role extends BaseEntity {
   // Relación: un rol puede tener muchos usuarios
   @OneToMany(() => UserEntity, (user) => user.role)
   users: UserEntity[];
+  
+  @OneToMany(() => Empresa, (empresa) => empresa.role)
+  empresa: Empresa[];
 
   // Relación: un rol puede tener muchos permisos
   @ManyToMany(() => Permission,(permission) => permission.roles)

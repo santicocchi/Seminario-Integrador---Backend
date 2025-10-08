@@ -22,7 +22,7 @@ export class UsuarioService {
   }
 
   async findOne(id: number): Promise<Usuario | null> {
-    return this.usuarioRepository.findOneBy({ id_usuario: id });
+    return this.usuarioRepository.findOneBy({ id: id });
   }
 
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto): Promise<Usuario | null> {

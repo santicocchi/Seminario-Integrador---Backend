@@ -19,8 +19,8 @@ export class Empresa extends BaseEntity implements UserI {
         return this.role?.permissions?.map((perm) => perm.code) || [];
       }
     
-      // Un usuario tiene un solo rol
-      @ManyToOne(() => Role, (role) => role.users)
+      // Una empresa tiene un solo rol
+      @ManyToOne(() => Role, (role) => role.empresa, { eager: true })
       @JoinColumn({ name: 'role_id' })
       role: Role;
 }

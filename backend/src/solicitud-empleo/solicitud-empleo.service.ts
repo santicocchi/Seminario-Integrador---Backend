@@ -22,7 +22,7 @@ export class SolicitudEmpleoService {
   }
 
   async findOne(id: number): Promise<SolicitudEmpleo | null> {
-    return this.solicitudEmpleoRepository.findOneBy({ id_solicitudEmpleo: id });
+    return this.solicitudEmpleoRepository.findOneBy({ id: id });
   }
 
   async update(id: number, updateSolicitudEmpleoDto: UpdateSolicitudEmpleoDto): Promise<SolicitudEmpleo | null> {

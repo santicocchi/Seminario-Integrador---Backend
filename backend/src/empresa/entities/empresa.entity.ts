@@ -23,6 +23,6 @@ export class Empresa {
     @JoinColumn({ name: 'id_direccion' })
     direccion: Direccion;
 
-    @OneToMany(() => OfertaEmpleo, oferta => oferta.empresa)
-    ofertas: OfertaEmpleo[];
+    //@OneToMany(() => OfertaEmpleo, oferta => oferta.empresa)
+    //ofertas: OfertaEmpleo[];
 }

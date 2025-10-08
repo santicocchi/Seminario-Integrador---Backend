@@ -26,6 +26,7 @@ export class OfertaEmpleoService {
     const ofertaEmpleo = this.ofertaEmpleoRepository.create({
       ...createOfertaEmpleoDto,
       estado: estadoDisponible,
+      empresa: createOfertaEmpleoDto.empresaId,
     });
     return this.ofertaEmpleoRepository.save(ofertaEmpleo);
   }
