@@ -32,6 +32,9 @@ export class OfertaEmpleo {
   //@ManyToOne(() => Empresa, empresa => empresa.ofertas)
   //@JoinColumn({ name: 'id_empresa' })
   //empresa: Empresa;
+  @ManyToOne(() => Empresa, empresa => empresa.ofertas)
+  @JoinColumn({ name: 'id_empresa' })
+  empresa: Empresa;
 
   @ManyToOne(() => Estado, estado => estado.ofertas)
   @JoinColumn({ name: 'id_estado' })

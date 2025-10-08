@@ -1,8 +1,10 @@
-import { IsNotEmpty, Matches, IsInt, Min } from 'class-validator';
+import { IsNotEmpty, IsInt, Min, Matches, IsOptional } from 'class-validator';
 
 export class CreateOfertaEmpleoDto {
-  @IsNotEmpty()
-  empresaId?:number;
+  @IsOptional()
+  @IsInt({ message: 'El ID de empresa debe ser un número entero' })
+  @Min(1, { message: 'El ID de empresa debe ser mayor a 0' })
+  empresaId?: number;
 
   @IsNotEmpty({ message: 'El título es obligatorio' })
   @Matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\.,\-_]+$/, {
@@ -48,8 +50,8 @@ export class CreateOfertaEmpleoDto {
 
 
 
-  @IsNotEmpty({ message: 'El ID de estado es obligatorio' })
-  @IsInt({ message: 'El ID de estado debe ser un número entero' })
-  @Min(1, { message: 'El ID de estado debe ser mayor a 0' })
-  id_estado: number;
+  //@IsNotEmpty({ message: 'El ID de estado es obligatorio' })
+  //@IsInt({ message: 'El ID de estado debe ser un número entero' })
+  //@Min(1, { message: 'El ID de estado debe ser mayor a 0' })
+  //id_estado: number;
 }

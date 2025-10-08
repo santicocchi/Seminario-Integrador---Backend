@@ -5,28 +5,31 @@ import { OfertaEmpleo } from './entities/oferta-empleo.entity';
 import { CreateOfertaEmpleoDto } from './dto/create-oferta-empleo.dto';
 import { UpdateOfertaEmpleoDto } from './dto/update-oferta-empleo.dto';
 import { Estado } from '../estado/entities/estado.entity';
+import { SolicitudEmpleo } from 'src/solicitud-empleo/entities/solicitud-empleo.entity';
 import { EstadoSolicitud } from 'src/enums/estado-oferta.enum';
 import { EstadoOferta } from 'src/enums/estado-solicitud.enum';
 
 
 @Injectable()
 export class OfertaEmpleoService {
-  solicitudEmpleoRepository: any;
   constructor(
     @InjectRepository(OfertaEmpleo)
     private readonly ofertaEmpleoRepository: Repository<OfertaEmpleo>,
     @InjectRepository(Estado)
     private readonly estadoRepository: Repository<Estado>,
+    @InjectRepository(SolicitudEmpleo)
+    private readonly solicitudEmpleoRepository: Repository<SolicitudEmpleo>,
   ) {}
 
-  async create(createOfertaEmpleoDto: CreateOfertaEmpleoDto): Promise<OfertaEmpleo> {
-    // Al crear, la oferta debe quedar en estado DISPONIBLE
+  async create(createOfertaEmpleoDto: CreateOfertaEmpleoDto, empresaId: number): Promise<OfertaEmpleo> {
     const estadoDisponible = await this.estadoRepository.findOne({ where: { valor: EstadoOferta.DISPONIBLE } });
     if (!estadoDisponible) throw new NotFoundException('Estado DISPONIBLE no encontrado');
+
     const ofertaEmpleo = this.ofertaEmpleoRepository.create({
       ...createOfertaEmpleoDto,
       estado: estadoDisponible,
-      empresa: createOfertaEmpleoDto.empresaId,
+      // Asigna la relación por id sin traer la empresa completa
+      empresa: { id: empresaId },
     });
     return this.ofertaEmpleoRepository.save(ofertaEmpleo);
   }
