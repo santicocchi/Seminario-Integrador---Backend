@@ -1,18 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, Req } from '@nestjs/common';
 import { OfertaEmpleoService } from './oferta-empleo.service';
 import { CreateOfertaEmpleoDto } from './dto/create-oferta-empleo.dto';
 import { UpdateOfertaEmpleoDto } from './dto/update-oferta-empleo.dto';
-import { Roles } from '../../../JWT/src/auth/roles.decorator';
 
 @Controller('oferta-empleo')
 export class OfertaEmpleoController {
   constructor(private readonly ofertaEmpleoService: OfertaEmpleoService) {}
 
-  @Roles('empresa')
   @Post()
-  create(@Request() req, @Body() createOfertaEmpleoDto: CreateOfertaEmpleoDto) {
-    // tomamos el id de la empresa desde el token (req.empresa)
-    const empresaIdFromToken = req.empresa?.id;
+  create(@Req() req, @Body() createOfertaEmpleoDto: CreateOfertaEmpleoDto) {
+    // tomamos el id de la empresa desde el token (req.user.empresaId)
+    const empresaIdFromToken = req.user?.empresaId || req.user?.sub;
     return this.ofertaEmpleoService.create(createOfertaEmpleoDto, empresaIdFromToken);
   }
 

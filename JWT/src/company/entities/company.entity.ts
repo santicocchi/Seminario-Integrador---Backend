@@ -16,8 +16,8 @@ export class CompanyEntity extends BaseEntity implements CompanyI{
   @Column({ unique: true })
   cuit: string;
 
-  @Column()
-  telefono: string;
+  @Column({ nullable: true })
+  telefono?: string;
 
   @Column({ unique: true })
   email: string;

@@ -15,12 +15,12 @@ export class UserEntity extends BaseEntity implements UserI {
   apellido: string;
 
   @Column({ type: 'date', nullable: true })
-  fechaNacimiento?: string;
+  fechaNacimiento: Date;
 
   @Column({ unique: true })
   cuil: string;
 
-  @Column()
+  @Column({nullable: true})
   telefono: string;
 
   @Column({ unique: true })
