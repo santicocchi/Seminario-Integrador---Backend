@@ -76,15 +76,20 @@ export class AppJwtService {
    * --------------------
    *Devuelve el payload decodificado si el token es válido, con todos los campos definidos en la interfaz Payload
    */
+
+  
+   //Payload es una interfaz que define la estructura del payload del token JWT, incluyendo email y type
+
   getPayload(token: string, type: 'refresh' | 'auth' = 'auth'): Payload {
     try {
-      const payload = verify(token, this.config[type].secret) as Payload;
+      const payload = verify(token, this.config[type].secret) as Payload; 
 
       if (!payload.email || !payload.type) {
         throw new UnauthorizedException('Token inválido');
       }
 
-      return payload;
+      return payload; //retorna el payload decodificado, con todos los campos definidos en la interfaz Payload
+
     } catch (error) {
       throw new UnauthorizedException('Token inválido o expirado');
     }

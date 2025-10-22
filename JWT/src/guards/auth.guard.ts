@@ -23,68 +23,50 @@ import { AppJwtService } from 'src/jwt/app-jwt.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: AppJwtService,
-    private authService: AuthService,
+    private authService: AuthService, //inyeccion del servicio de autenticacion para acceder a los repositorios de usuario y empresa
     private reflector: Reflector, // reflector permite leer metadatos de decoradores (como @Permissions)
   ) {}
-
+  //canActivate se ejecuta en cada solicitud protegida por este guardia, lo que hace es verificar el token JWT y los permisos del usuario/empresa
+  //el método canActivate se usa para determinar si se permite o no el acceso a la ruta solicitada, antes de llegar al controlador
+  
   async canActivate(context: ExecutionContext): Promise<boolean> {
     try {
-      // Obtenemos la solicitud HTTP
+      // Obtenemos la solicitud HTTP, getRequest devuelve el objeto de solicitud HTTP (req) que contiene detalles sobre la solicitud entrante, como headers, body, params, user (si autenticado), etc.
       const request: RequestWithUser = context.switchToHttp().getRequest();
 
       // Extraemos el token del header Authorization
-      const authHeader = request.headers.authorization;
+      const authHeader = request.headers.authorization; 
       if (!authHeader) throw new UnauthorizedException('No se proporcionó token');
+
       const token = authHeader.replace('Bearer ', '');
 
-      // Decodificamos el token para obtener el payload
+      //le pasamos el token limpio al servicio JWT para verificar su validez
+      //el servico AppJwtService se encarga de verificar y decodificar el token JWT
       const payload = this.jwtService.getPayload(token);
+      request.user = payload; //adjuntamos el payload decodificado a la solicitud para que esté disponible en los controladores
 
-      // Buscamos la entidad correspondiente según el type
-      let entity;
-      if (payload.type === 'user') {
-        entity = await this.authService['userRepo'].findOne({
-          where: { email: payload.email },
-          relations: ['role', 'role.permissions'],
-        });
-      } else if (payload.type === 'company') {
-        entity = await this.authService['companyRepo'].findOne({
-          where: { email: payload.email },
-        });
-      }
+      // Obtenemos los permisos requeridos del decorador @Permissions, estos permisos se definen en los controladores
+      //usamos reflector para leer los metadatos definidos por el decorador @Permissions en el controlador
+      //el contexto (context) proporciona info sobre la solicitud actual, incluyendo el controlador y el método que la maneja
+      //usamos context.getHandler() para obtener el método del controlador que manejará la solicitud actual
+      //luego usamos reflector.get para leer los permisos definidos en ese método
 
-      if (!entity) throw new UnauthorizedException('Entidad no encontrada');
+      //en esta liena lo que hacemos es obtener los permisos requeridos para acceder al endpoint actual
+      //es decir el decorador @Permissions que usamos en el controlador
 
-      // Guardamos la entidad en request.user para usarla en controladores
-      request.user = {
-        id: entity.id,
-        email: entity.email,
-        type: payload.type, // 'user' o 'company'
-        name: payload.type === 'user' ? `${entity.nombre} ${entity.apellido}` : entity.nombre,
-        role: entity.role?.name, 
-        permissionCodes: entity.role?.permissions.map(p => p.code) ?? [],
-        razonSocial : payload.type === 'company' ? entity.razonSocial : undefined,
-        cuit : payload.type === 'company' ? entity.cuit : undefined,
-      };
-
-      // Obtenemos los permisos requeridos del decorador @Permissions
-      const permissions = this.reflector.get<string[]>('permissions', context.getHandler());
-
-      // Si no hay permisos requeridos, permitimos el acceso
+      //reflector.get lee los metadatos definidos por el decorador @Permissionsn en el controlador, y depsues getHandler devuelve el método del controlador que manejará la solicitud actual
+      const permissions = this.reflector.get<string[]>('permissions', context.getHandler()); 
+      
       if (!permissions || permissions.length === 0) return true;
 
+      const userPermissions = payload.permissionCodes ?? []; //permsisos del usuario/empresa desde el payload del token 
 
-      const userPermissions = request.user.permissionCodes ?? [];
-
-      // Verificamos que la entidad tenga todos los permisos requeridos
-      const hasPermission = permissions.every((perm) =>
-        userPermissions.includes(perm),
-      );
-
+      // Verificamos que el usuario/empresa tenga todos los permisos requeridos
+      //every verifica que todos los permisos requeridos del endpoint estén en los permisos del usuario/empresa
+      const hasPermission = permissions.every((perm) => userPermissions.includes(perm));
       if (!hasPermission) {
         throw new ForbiddenException('No tienes permisos suficientes');
       }
-
       return true;
     } catch (error) {
       throw new UnauthorizedException(error?.message || 'No autorizado');

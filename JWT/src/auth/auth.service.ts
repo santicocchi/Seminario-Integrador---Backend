@@ -27,58 +27,61 @@ export class AuthService {
   /** --------------------
    * LOGIN (usuarios y empresas)
    * -------------------- */
-  async login(body: LoginDTO, type: 'user' | 'company') {
-    //busco la entidad (usuario o empresa) por email
-    //este bloque lo que hace es buscar en la base de datos el usuario o empresa que intenta loguearse
-    //para diferenciar entre ambos, uso el parametro 'type' que puede ser 'user' o 'company'
-    
-    //segun el tipo, uso el repositorio correspondiente (userRepo o companyRepo)
-    const repo = type === 'user' ? this.userRepo : this.companyRepo;
 
-    //buscamos la entidad 
-    const entity = await repo.findOne({ 
-      where: { email: body.email }, 
-      relations: ['role', 'role.permissions'] //cargo el rol y permisos asociados a la entidad, puede ser usuario o empresa
+  
+ async login(body: LoginDTO) {
+  // Busco usuario
+  let user: UserEntity | null = await this.userRepo.findOne({
+    where: { email: body.email },
+    relations: ['role', 'role.permissions']
+  });
+
+  // Declaro empresa (por si no encuentro usuario)
+  let company: CompanyEntity | null = null;
+
+  // Si no se encontró usuario, busco empresa
+  if (!user) {
+    company = await this.companyRepo.findOne({
+      where: { email: body.email },
+      relations: ['role', 'role.permissions']
     });
-    if (!entity) throw new UnauthorizedException("Email o contraseña incorrectos");
-
-    const valid = compareSync(body.password, entity.password);
-    //si la contraseña no es valida, lanzo una excepcion de no autorizado
-    if (!valid) throw new UnauthorizedException("Email o contraseña incorrectos");
-
-    //si el login es exitoso, genero el payload del token
-    //el payload incluye id, email, type (user o company), name y role (solo para usuarios)
-    //esto nos permite tener toda la informacion necesaria en el token para identificar al usuario o empresa y sus permisos
-    //luego genero y retorno los tokens de acceso y refresco usando el servicio jwtService
-    //el token de acceso se usa para autenticar solicitudes a recursos protegidos, mientras que el token de refresco se usa para obtener nuevos tokens de acceso cuando estos expiran
-    //ambos tokens incluyen el mismo payload, pero tienen diferentes tiempos de expiracion y usos
-
-    //construyo el nombre segun si es usuario o empresa, si es usuario uso nombre y apellido, si es empresa uso solo nombre, despues 
-    //lo agrego al payload como 'name'
-    let name: string;
-    if (type === 'user') {
-    const user = entity as UserEntity;
-    name = `${user.nombre} ${user.apellido}`;
-    } else {
-    const company = entity as CompanyEntity;
-    name = company.nombre;
-    }
-
-    const payload: Payload = { 
-      id: entity.id,
-      name,
-      email: entity.email,
-      type,
-      role: type === 'user' ? entity.role?.name : undefined,
-      permissionCodes: entity.role?.permissions.map(p => p.code) ?? [],
-    };
-
-      //este return genera y devuelve los tokens de acceso y refresco
-    return {
-      accessToken: this.jwtService.generateToken(payload, 'auth'),
-      refreshToken: this.jwtService.generateToken(payload, 'refresh'),
-    };
   }
+
+  if (!user && !company)
+    throw new UnauthorizedException('Email o contraseña incorrectos');
+
+  // Determino el tipo y la entidad
+  const type: 'user' | 'company' = user ? 'user' : 'company';
+  const entity = user ?? company!; // elijo el que no sea null
+
+  // Verifico la contraseña
+  const valid = compareSync(body.password, entity.password);
+  if (!valid)
+    throw new UnauthorizedException('Email o contraseña incorrectos');
+
+  // Armo el nombre según tipo
+  const name =
+    type === 'user'
+      ? `${(entity as UserEntity).nombre} ${(entity as UserEntity).apellido}`
+      : (entity as CompanyEntity).nombre;
+
+  // Armo el payload
+  const payload: Payload = {
+    id: entity.id,
+    name,
+    email: entity.email,
+    type,
+    role: type === 'user' ? (entity as UserEntity).role?.name : undefined,
+    permissionCodes: entity.role?.permissions.map(p => p.code) ?? [],
+  };
+
+  // Devuelvo los tokens
+  return {
+    accessToken: this.jwtService.generateToken(payload, 'auth'),
+    refreshToken: this.jwtService.generateToken(payload, 'refresh'),
+  };
+}
+
 
   /** --------------------
    * REGISTRO DE USUARIO

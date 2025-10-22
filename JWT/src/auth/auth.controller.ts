@@ -47,21 +47,27 @@ me(@Req() req: RequestWithUser) {
   }
 }
 
+@Post('login')
+login(@Body() body: LoginDTO) {
+  return this.service.login(body);
+}
+
+
   /** --------------------
    * LOGIN USUARIO
    * -------------------- */
-  @Post('login/user')
-  loginUser(@Body() body: LoginDTO) {
-    return this.service.login(body, 'user');
-  }
+  //@Post('login/user')
+  //loginUser(@Body() body: LoginDTO) {
+    //return this.service.login(body, 'user');
+  //}
 
   /** --------------------
    * LOGIN EMPRESA
    * -------------------- */
-  @Post('login/company')
-  loginCompany(@Body() body: LoginDTO) {
-    return this.service.login(body, 'company');
-  }
+  //@Post('login/company')
+  //loginCompany(@Body() body: LoginDTO) {
+    //return this.service.login(body, 'company');
+  //}
 
   //la diferencia entre los endpoits para registar usuario y empresa de este controlador, con 
   //los endpoits para crear usuario y empresa de los controladores user y company, es que estos ultimos son usados por admins para crear usuarios y empresas
